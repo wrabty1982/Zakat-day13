@@ -28,6 +28,11 @@ export class BigintInterceptor implements NestInterceptor {
       return obj.map((item) => this.transform(item));
     }
 
+    // Date و Prisma Decimal لهما toJSON خاص، فنتركهما كما هما وإلا يتحولان إلى {} أو {d, e, s}
+    if (typeof obj.toJSON === 'function') {
+      return obj;
+    }
+
     if (typeof obj === 'object') {
       const result: any = {};
       for (const key in obj) {

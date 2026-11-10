@@ -29,4 +29,13 @@ export class ProductsService {
 
     return product;
   }
+  
+  //find where active = true
+  async findActive() {
+    return this.prisma.products.findMany({
+      where: {
+        active: true,
+      },
+    });
+  }
 }
