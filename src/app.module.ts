@@ -2,6 +2,9 @@ import { Module } from '@nestjs/common';
 import { createObserveModule } from '@nestjs/observe';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
+import { ProductsController } from './products/products.controller.js';
+import { ProductsService } from './products/products.service.js';
+import { ProductsModule } from './products/products.module.js';
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
@@ -15,8 +18,9 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
       appSecret: process.env.OBSERVE_APP_SECRET ?? 'YOUR_APP_SECRET',
       serviceId: 'day13',
     }),
+    ProductsModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, ProductsController],
+  providers: [AppService, ProductsService],
 })
 export class AppModule {}
