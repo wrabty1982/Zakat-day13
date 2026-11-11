@@ -13,20 +13,18 @@ export class ProductsService {
   //get product by id
   async findOne(id: string) {
     // BigInt("abc") يرمي خطأ 500، لذلك نتحقق أن الـ id رقم أولاً
-    if (!/^\d+$/.test(id)) {
-      throw new BadRequestException('id must be a positive integer');
-    }
+   
 
-    const product = await this.prisma.products.findUnique({
+    const product = await this.prisma.products.findFirstOrThrow({
       where: {
         product_id: BigInt(id),
       },
     });
 
-    if (!product) {
+/*     if (!product) {
       throw new NotFoundException(`Product ${id} not found`);
     }
-
+ */
     return product;
   }
   
